@@ -5,12 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CookieDemo.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookieDemo.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
+        [Authorize(Roles = "Admin, Guest")]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Setting()
         {
             return View();
         }
@@ -22,6 +31,7 @@ namespace CookieDemo.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
